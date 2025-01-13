@@ -1,10 +1,15 @@
 import { ChildrenInfo } from '@/types/types'
 import React from 'react'
 import styles from "./child.module.css";
+import { format } from 'date-fns';
+
 
 export default function CheckChild(child: ChildrenInfo) {
 
-  const checkInChild = async (childId: string) => {
+  const now = format(child.child.checkinTime, "HH:mm")
+  const [time, setTime] = React.useState<string>(now)
+
+  const checkInChild = async (childId: string, time: string) => {
     const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN
 
     try {
@@ -15,7 +20,7 @@ export default function CheckChild(child: ChildrenInfo) {
         },
         body: JSON.stringify({
           accessToken,
-          pickupTime: "23:00"
+          pickupTime: time
         },)
       })
       let data = await res.json()
@@ -42,10 +47,11 @@ export default function CheckChild(child: ChildrenInfo) {
     }
   }
 
-
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <div className={styles.checkChild} onClick={() => checkInChild(child?.child.childId)}>Check In Child at 23:00</div>
+      <div className={styles.checkChild} onClick={() => checkInChild(child?.child.childId, time)}>Check In Child at
+        <input value={time} onChange={(ev) => { setTime(ev.target.value) }} aria-label="Time" type="time" />
+      </div>
       <div className={styles.checkChild} onClick={() => checkOutChild(child?.child.childId)}>Check Out Child now</div>
     </div>
   )
