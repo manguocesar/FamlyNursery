@@ -1,8 +1,7 @@
 import React from 'react'
 import styles from "./child.module.css";
 import { ChildrenInfo } from '../types/types'
-import { useFormatter } from 'next-intl';
-import {formatDistance, format} from 'date-fns';
+import {format} from 'date-fns';
 
 
 export default function ChildInfo(child: ChildrenInfo) {
