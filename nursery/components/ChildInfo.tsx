@@ -10,9 +10,9 @@ export default function ChildInfo(child:ChildrenInfo) {
   return (
     <div className={styles.childInfo}>
             <h2>Child Info:</h2>
-            {child.child.gender === 1 ?<p>Gender: Boy</p> :<p>Gender: Girl</p>}
-            <p style={{textAlign: 'center'}}>Checking date: {date.toLocaleDateString()}</p>
-            <p style={{textAlign: 'center'}}>Checking time: {date.toLocaleTimeString()}</p>
+            {child.child.gender === 1 ?<div>Gender: Boy</div> :<div>Gender: Girl</div>}
+            <div style={{textAlign: 'center'}}>Checking date: {date.toLocaleDateString()}</div>
+            <div style={{textAlign: 'center'}}>Checking time: {date.toLocaleTimeString()}</div>
           
           </div>
   )
