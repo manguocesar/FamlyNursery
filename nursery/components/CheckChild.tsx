@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 
 export default function CheckChild(child: ChildrenInfo) {
 
-  const now = format(child.child.checkinTime, "HH:mm")
+  const now = format(Date(), "HH:mm")
   const [time, setTime] = React.useState<string>(now)
 
   const checkInChild = async (childId: string, time: string) => {
