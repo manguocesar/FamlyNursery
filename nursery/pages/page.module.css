@@ -14,11 +14,24 @@
   padding: 80px;
   gap: 64px;
   font-family: var(--font-geist-sans);
+  .page {
+    padding: 32px;
+    padding-bottom: 80px;
+    border: #383838 2px solid;
+  }
 }
 
 @media (max-width: 600px) {
   .page {
     padding: 32px;
     padding-bottom: 80px;
+   
   }
+}
+
+.childCard {
+  border: #383838 2px solid;
+  align-items: center;
+  justify-items: center;
+  margin: 10px;
 }
