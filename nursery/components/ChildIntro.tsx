@@ -7,9 +7,9 @@ export default function ChildIntro(child:ChildrenInfo) {
   
   return (
     <div className={styles.childIntro}>
-      <h2>{child.child.name?.fullName}</h2>
+      <h2 style={{textAlign: 'center'}}>{child.child.name?.fullName}</h2>
       <div>
-        img
+        Child Image
       </div>
     </div>
   )
