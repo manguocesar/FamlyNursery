@@ -1,12 +1,21 @@
 .page {
   align-items: center;
   justify-items: center;
-  background-color: gray;
 }
+
+
 
 .childCard {
   border: #383838 2px solid;
   align-items: center;
   justify-items: center;
   margin: 10px;
+}
+.childIntro {
+  align-items: center;
+  justify-items: center;
+}
+.childInfo {
+  align-items: center;
+  justify-items: center;
 }

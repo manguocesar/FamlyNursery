@@ -1,5 +1,8 @@
 import styles from "./page.module.css";
 import type { InferGetStaticPropsType } from 'next'
+import { Child } from '../types/types'
+import ChildInfo from "@/components/ChildInfo";
+import ChildIntro from "@/components/ChildIntro";
 
 export const getStaticProps = (async () => {
 
@@ -13,43 +16,15 @@ export const getStaticProps = (async () => {
   return { props: { childrenInfo } }
 })
 
-type Child = {
-  childId: string;
-  institutionId: string;
-  groupId: string;
-  createdTime: string;
-  gender: number;
-  name: {
-    fullName: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-  };
-  birthday: string;
-  startDate: string;
-  checkinTime: string;
-  hasVacation: boolean;
-  isSick: boolean;
-  isAbsent: boolean;
-  onBus: boolean;
-}
 
-type ChildrenInfo = {
-  children: Child[];
-}
 export default function Home({ childrenInfo }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <div className={styles.page}>
       {childrenInfo.children.map((child: Child) => (
         <div key={child.childId} className={styles.childCard}>
-          <h2>{child.name.fullName}</h2>
-          <p>{child.checkinTime}</p>
-          <p>{child.hasVacation}</p>
-          <p>{child.isSick}</p>
-          <p>{child.isAbsent}</p>
-          <p>{child.onBus}</p>
-          <p>{child.gender}</p>
+          <ChildIntro child={child} />
+          <ChildInfo child={child} />
         </div>
       ))
       }
