@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from 'next'
 import { Child } from '../types/types'
 import ChildInfo from "@/components/ChildInfo";
 import ChildIntro from "@/components/ChildIntro";
+import CheckChild from "@/components/CheckChild";
 
 export const getStaticProps = (async () => {
 
@@ -25,6 +26,7 @@ export default function Home({ childrenInfo }: InferGetStaticPropsType<typeof ge
         <div key={child.childId} className={styles.childCard}>
           <ChildIntro child={child} />
           <ChildInfo child={child} />
+          <CheckChild child={child} />
         </div>
       ))
       }
