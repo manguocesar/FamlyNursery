@@ -5,8 +5,8 @@ import styles from "./child.module.css";
 export default function CheckChild(child: ChildrenInfo) {
 
   const checkInChild = async (childId: string) => {
+    const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN
 
-    const accessToken = process.env.ACCESS_TOKEN
     try {
       let res = await fetch(`https://app.famly.co/api/v2/children/${childId}/checkins`, {
         method: 'POST',
@@ -15,7 +15,7 @@ export default function CheckChild(child: ChildrenInfo) {
         },
         body: JSON.stringify({
           accessToken,
-          pickupTime: "16:00"
+          pickupTime: "23:00"
         },)
       })
       let data = await res.json()
@@ -23,9 +23,9 @@ export default function CheckChild(child: ChildrenInfo) {
       console.log(error)
     }
   }
-  
+
   const checkOutChild = async (childId: string) => {
-    const accessToken = process.env.ACCESS_TOKEN
+    const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN
     try {
       let res = await fetch(`https://app.famly.co/api/v2/children/${childId}/checkout`, {
         method: 'POST',
