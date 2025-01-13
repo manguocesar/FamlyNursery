@@ -45,7 +45,7 @@ export default function CheckChild(child: ChildrenInfo) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <div className={styles.checkChild} onClick={() => checkInChild(child?.child.childId)}>Check In Child at 16:00</div>
+      <div className={styles.checkChild} onClick={() => checkInChild(child?.child.childId)}>Check In Child at 23:00</div>
       <div className={styles.checkChild} onClick={() => checkOutChild(child?.child.childId)}>Check Out Child now</div>
     </div>
   )
