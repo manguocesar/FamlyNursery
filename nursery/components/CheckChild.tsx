@@ -1,58 +1,28 @@
-import { ChildrenInfo } from '@/types/types'
+import { ChildrenInfo } from '@/types/children'
 import React from 'react'
-import styles from "./child.module.css";
 import { format } from 'date-fns';
+import { checkInChild, checkOutChild } from '@/actions/children';
 
-
-export default function CheckChild(child: ChildrenInfo) {
+export default function CheckChild(child: ChildrenInfo, refreshCheckIn: any) {
 
   const now = format(Date(), "HH:mm")
   const [time, setTime] = React.useState<string>(now)
 
-  const checkInChild = async (childId: string, time: string) => {
-    const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN
-
-    try {
-      let res = await fetch(`https://app.famly.co/api/v2/children/${childId}/checkins`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          accessToken,
-          pickupTime: time
-        },)
-      })
-      let data = await res.json()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const checkOutChild = async (childId: string) => {
-    const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN
-    try {
-      let res = await fetch(`https://app.famly.co/api/v2/children/${childId}/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          accessToken,
-        },)
-      })
-      let data = await res.json()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <div className={styles.checkChild} onClick={() => checkInChild(child?.child.childId, time)}>Check In Child at
-        <input value={time} onChange={(ev) => { setTime(ev.target.value) }} aria-label="Time" type="time" />
-      </div>
-      <div className={styles.checkChild} onClick={() => checkOutChild(child?.child.childId)}>Check Out Child now</div>
+    <div className=''>
+      {child?.child.checkedIn ?
+        <button className="rounded-lg border-b-0 border-r-2 m-3 p-3 bg-white"
+          onClick={() => {checkOutChild(child?.child.childId)}}>Check Out Child now</button>
+        :
+        <div className='flex flex-col items-center'>
+          <button className="rounded-lg border-b-0 border-r-2 m-3 p-3 bg-white"
+            onClick={() => {checkInChild(child?.child.childId, time)}
+              
+            }>Check In Child at
+          </button>
+          <input value={time} onChange={(ev) => { setTime(ev.target.value) }} aria-label="Time" type="time" />
+        </div>
+      }
     </div>
   )
 }

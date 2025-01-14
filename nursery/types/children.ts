@@ -17,6 +17,7 @@ export type Child = {
     isSick: boolean;
     isAbsent: boolean;
     onBus: boolean;
+    checkedIn: boolean;
   }
 
   export type ChildrenInfo = {
