@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./child.module.css";
-import { ChildrenInfo } from '../types/types'
+import { ChildrenInfo } from '../types/children'
 import Image from 'next/image';
 
 
