@@ -11,7 +11,7 @@ export default function CheckChild(child: ChildrenInfo) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <button className="rounded-lg border-b-0 border-r-2 m-3 p-3 bg-white"
-        onClick={() => checkInChild(child?.child.childId, time)}>Check In Child at
+        onClick={() => checkInChild(child?.child.childId, time)}>Check In Child at 
         <input value={time} onChange={(ev) => { setTime(ev.target.value) }} aria-label="Time" type="time" />
       </button>
       <button className="rounded-lg border-b-0 border-r-2 m-3 p-3 bg-white"
