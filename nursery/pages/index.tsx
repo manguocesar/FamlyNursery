@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import type { InferGetStaticPropsType } from 'next'
-import { Child } from '../types/types'
+import { Child } from '../types/children'
 import ChildInfo from "@/components/ChildInfo";
 import ChildIntro from "@/components/ChildIntro";
 import CheckChild from "@/components/CheckChild";
