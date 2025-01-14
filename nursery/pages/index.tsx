@@ -28,11 +28,10 @@ export const getServerSideProps = (async () => {
 export default function Home({ childrenInfo }: InferGetStaticPropsType<any>) {
 
   return (
-    <div 
-    // className={styles.page}
-    className="text-3xl font-bold bg-red-800">
+    <div className="flex flex-col justify-center items-center bg-gray-400 p-2" >
+      <h1 className="font-extrabold text-5xl">Nursery</h1>
       {childrenInfo.children.map((child: Child) => (
-        <div key={child.childId} className="flex flex-col bg-red-400 items-center">
+        <div key={child.childId} className="flex justify-around border-2 rounded-lg  items-center m-3 p-3">
           <ChildIntro child={child} />
           <ChildInfo child={child} />
           <CheckChild child={child} />
