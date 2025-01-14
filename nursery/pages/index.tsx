@@ -1,9 +1,10 @@
 import styles from "./page.module.css";
 import type { InferGetStaticPropsType } from 'next'
-import { Child } from '../types/children'
+import { Child, ChildrenInfo } from '../types/children'
 import ChildInfo from "@/components/ChildInfo";
 import ChildIntro from "@/components/ChildIntro";
 import CheckChild from "@/components/CheckChild";
+import 'tailwindcss/tailwind.css'
 
 export const getServerSideProps = (async () => {
 
@@ -27,9 +28,11 @@ export const getServerSideProps = (async () => {
 export default function Home({ childrenInfo }: InferGetStaticPropsType<any>) {
 
   return (
-    <div className={styles.page}>
+    <div 
+    // className={styles.page}
+    className="text-3xl font-bold bg-red-800">
       {childrenInfo.children.map((child: Child) => (
-        <div key={child.childId} className={styles.childCard}>
+        <div key={child.childId} className="flex flex-col bg-red-400 items-center">
           <ChildIntro child={child} />
           <ChildInfo child={child} />
           <CheckChild child={child} />
