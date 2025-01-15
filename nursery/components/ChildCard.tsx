@@ -1,4 +1,4 @@
-import { checkInChild, checkOutChild } from '@/actions/children';
+import { checkInChild, checkOutChild, fetchChildren } from '@/actions/children';
 import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import ChildIntro from './ChildIntro';
@@ -7,27 +7,13 @@ import { Child as ChildType } from '@/types/children';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-const fetchChildren = async () => {
-  try {
-    const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-    const groupId = '86413ecf-01a1-44da-ba73-1aeda212a196';
-    const institutionId = 'dc4bd858-9e9c-4df7-9386-0d91e42280eb';
-    const URL = `https://app.famly.co/api/daycare/tablet/group?accessToken=${accessToken}&groupId=${groupId}&institutionId=${institutionId}`;
-
-    const res = await fetch(URL);
-    const { children } = await res.json();
-    return children;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export default function Child() {
   const now = format(Date(), 'HH:mm');
   const [time, setTime] = useState<string>(now);
   const { ref, inView } = useInView();
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ['children'],
     queryFn: fetchChildren,
