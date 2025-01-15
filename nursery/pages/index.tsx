@@ -33,7 +33,7 @@ export default function Home() {
     [])
 
   useEffect(() => {
-    if (inView) { setDisplayChildren(displayChildren => displayChildren + 2) }
+    if (inView) { setDisplayChildren(displayChildren => displayChildren + 3) }
   }, [inView])
 
   const [displayChildren, setDisplayChildren] = useState<number>(5)
@@ -75,13 +75,13 @@ export default function Home() {
         }
       </div>
       <div className="flex justify-center p-4">
-        <button onClick={() => setDisplayChildren(displayChildren => displayChildren + 2)} className="bg-blue-500 rounded-md text-3xl hover:bg-blue-700 text-white font-bold py-2 px-4">
+        <button onClick={() => setDisplayChildren(displayChildren => displayChildren + 3)} className="bg-blue-500 rounded-md text-3xl hover:bg-blue-700 text-white font-bold py-2 px-4">
           Display more children
         </button>
       </div>
-      <div ref={ref}>
-        Loading...
-      </div>
+      <p className='text-center' ref={ref}>
+        Loading more children...
+      </p>
     </div>
   );
 }
