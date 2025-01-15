@@ -1,11 +1,8 @@
-import { Child } from '../types/children';
 import 'tailwindcss/tailwind.css';
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query';
 
 import ChildCard from '@/components/ChildCard';

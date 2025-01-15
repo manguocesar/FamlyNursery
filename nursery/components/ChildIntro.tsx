@@ -7,7 +7,7 @@ export default function ChildIntro(child: ChildrenInfo) {
     <div className="items-center justify-center">
       <h2 className="text-center font-bold">{child.child.name?.fullName}</h2>
       <Image
-        className="mt-2 rounded-lg"
+        className="mt-3 rounded-lg"
         src="/famly.jpg"
         alt="child image"
         width={200}

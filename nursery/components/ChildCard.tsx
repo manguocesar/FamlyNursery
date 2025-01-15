@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import ChildIntro from './ChildIntro';
 import ChildInfo from './ChildInfo';
 import { Child as ChildType } from '@/types/children';
-import { useMutation, useQuery,QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
 const fetchChildren = async () => {
@@ -37,37 +37,40 @@ export default function Child() {
   const mutateCheckOut = useMutation({
     mutationFn: checkOutChild,
     onSuccess: () => {
-        queryClient.invalidateQueries(["children"]);
+      queryClient.invalidateQueries({ queryKey: ["children"] });
     },
-    onMutate: async (childId) => {
-        await queryClient.cancelQueries(["children"]);
-        const previousPosts = queryClient.getQueryData(["children"]);
-        queryClient.setQueryData(["children"], (childId:number) => childId);
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["children"] });
+      const previousPosts = queryClient.getQueryData(["children"]);
+      queryClient.setQueryData(["children"], (childId: number) => childId);
 
-        return { previousPosts };
+      return { previousPosts };
     },
     onError: (err, newPost, context) => {
-        queryClient.setQueryData(["children"], context?.previousPosts);
+      queryClient.setQueryData(["children"], context?.previousPosts);
     },
-});
-  
-const mutateCheckIn = useMutation({
-    mutationFn: checkInChild,
-    onSuccess: (childId, time) => {
-        queryClient.invalidateQueries(["children"]);
-    },
-    onMutate: async (childId, time) => {
-        await queryClient.cancelQueries(["children"]);
-        const previousPosts = queryClient.getQueryData(["posts"]);
-        queryClient.setQueryData(["children"], (
-          childId:number, time:string) => childId, time);
+  });
 
-        return { previousPosts };
+  const mutateCheckIn = useMutation({
+    mutationFn: ({ childId, time }: { childId: string; time: string }) => checkInChild(childId, time),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["children"] });
+    },
+    onMutate: async ({ childId, time }: { childId: string; time: string }) => {
+      await queryClient.cancelQueries({ queryKey: ["children"] });
+      const previousPosts = queryClient.getQueryData(["posts"]);
+      queryClient.setQueryData(["children"], (oldData: any) => {
+        return oldData.map((child: ChildType) =>
+          child.childId === childId ? { ...child, checkedIn: true, time } : child
+        );
+      });
+
+      return { previousPosts };
     },
     onError: (err, newPost, context) => {
-        queryClient.setQueryData(["children"], context?.previousPosts);
+      queryClient.setQueryData(["children"], context?.previousPosts);
     },
-});
+  });
 
   const [displayChildren, setDisplayChildren] = useState<number>(5);
 
@@ -78,8 +81,6 @@ const mutateCheckIn = useMutation({
   }, [inView]);
 
   const slicedArray = data?.slice(0, displayChildren);
-
-  console.log('data', data);
 
   if (isLoading) return <p> Loading...</p>;
 
@@ -107,7 +108,7 @@ const mutateCheckIn = useMutation({
                 <button
                   className="m-3 rounded-lg border-b-0 border-r-2 bg-white p-3"
                   onClick={() => {
-                    mutateCheckIn.mutate(child.childId, time)
+                    mutateCheckIn.mutate({ childId: child.childId, time })
                   }}
                 >
                   Check In Child at
