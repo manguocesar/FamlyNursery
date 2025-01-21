@@ -8,6 +8,15 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
 
+// TO DO:
+// Compare time & block input
+// const lastActivityDate = new Date(user[0].lastActivityDate!);
+//   const now = new Date();
+//   const timeDifference = now.getTime() - lastActivityDate.getTime();
+
+// 2nd TO DO:
+// add pagination with useRef with a useHook
+
 export default function Child() {
   const now = format(Date(), 'HH:mm');
   const [time, setTime] = useState<string>(now);

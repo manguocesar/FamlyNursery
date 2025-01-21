@@ -93,7 +93,7 @@ The purpose of the frontend app is for a nursery to manage the attendance of chi
 2. Checkin a child
 3. Checkout a child
 
-
+## tech choices
 NextJs APP so that the data is static & ready in contrast with a react app 
 Fetch the data as infinite scroll with getStaticProps --
 Post Checkin Child btn near the child card
@@ -101,6 +101,7 @@ Post Checkout Child btn near the child card
 
 Token in .env
 
+## steps to build
 Card component for child with materialUI
 First page listing all children, infinite scrolling to get more loading,
 Add loader at the bottom
@@ -114,3 +115,15 @@ Add framer motion for interactivity
 Adding Cypress test
 
 Add Top Title
+
+## next steps
+suspense & skeleton
+
+## TO DO:
+// Compare time & block input
+// const lastActivityDate = new Date(user[0].lastActivityDate!);
+//   const now = new Date();
+//   const timeDifference = now.getTime() - lastActivityDate.getTime();
+
+// 2nd TO DO:
+// add pagination with useRef with a useHook
