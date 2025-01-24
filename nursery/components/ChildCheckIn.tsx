@@ -78,8 +78,8 @@ const ChildCheckIn = ({ child }: { child: ChildType }) => {
                         disabled={disableCheckIn(time)}
                         className={`m-3 rounded-lg border-2 bg-white p-3 font-bold
                     ${disableCheckIn(time) ?
-                         'border-red-600 text-red-600 opacity-35' :
-                         'border-green-500 text-green-500 hover:scale-110 transform transition duration-500 ease-in-out'}`}
+                                'border-red-600 text-red-600 opacity-35' :
+                                'border-green-500 text-green-500 hover:scale-110 transform transition duration-500 ease-in-out'}`}
                         onClick={() => {
                             mutateCheckIn.mutate({ childId: child.childId, time })
                         }}
@@ -87,15 +87,17 @@ const ChildCheckIn = ({ child }: { child: ChildType }) => {
                         Check In Child at
                     </button>
                     <input
-                        className='border-2 border-gray-500 rounded-md p-2'
+                        className={`border-2 border-gray-500 rounded-md p-2 
+                            ${disableCheckIn(time) && 'border-red-600 opacity-75'}`}
                         defaultValue={now}
                         onChange={ev => {
                             setTime(ev.target.value);
                         }}
                         aria-label="Time"
                         type="time"
-
                     />
+                    {disableCheckIn(time) && (
+                        <p className="text-red-600 text-center text-sm">Past time</p>)}
                 </div>
             )}
         </>
