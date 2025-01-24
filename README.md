@@ -69,9 +69,4 @@ Post Checkout Child btn near the child card
 Token in .env
 
 ## next steps
-1. suspense & skeleton
-2. Compare time & block input
-3. const lastActivityDate = new Date(user[0].lastActivityDate!);
-4. const now = new Date();
-5. const timeDifference = now.getTime() - lastActivityDate.getTime();
-6. add pagination with useRef with a useHook
+1. turn ChildCard into pure component

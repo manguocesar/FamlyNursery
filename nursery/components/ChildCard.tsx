@@ -1,28 +1,18 @@
-import { checkInChild, checkOutChild, fetchChildren } from '@/actions/children';
+'use client';
+
+import dynamic from 'next/dynamic';
+import { fetchChildren } from '@/actions/children';
 import React, { useEffect, useState } from 'react';
-import { format } from 'date-fns';
-import ChildIntro from './ChildIntro';
-import ChildInfo from './ChildInfo';
 import { Child as ChildType } from '@/types/children';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import ChildCheckIn from './ChildCheckIn';
-import Skeleton from './skeleton';
-
-
-// TO DO:
-// Compare time & block input
-// const lastActivityDate = new Date(user[0].lastActivityDate!);
-//   const now = new Date();
-//   const timeDifference = now.getTime() - lastActivityDate.getTime();
-
-// 2nd TO DO:
-// add pagination with useRef with a useHook
+const ChildIntro = dynamic(() => import('./ChildIntro'), { ssr: false })
+const ChildInfo = dynamic(() => import('./ChildInfo'), { ssr: false })
+const Skeleton = dynamic(() => import('./skeleton'), { ssr: false })
+const ChildCheckIn = dynamic(() => import('./ChildCheckIn'), { ssr: false })
 
 export default function Child() {
-  const now = format(Date(), 'HH:mm');
   const { ref, inView } = useInView();
-
   const { data, isLoading, error } = useQuery({
     queryKey: ['children'],
     queryFn: fetchChildren,
@@ -38,11 +28,8 @@ export default function Child() {
   }, [inView]);
 
   const slicedArray = data?.slice(0, displayChildren);
-
   if (isLoading) return <Skeleton />
-
   if (error) return <p> Error occured: {error.message}</p>;
-
 
   return (
     <div className="flex flex-col bg-gray-400">
