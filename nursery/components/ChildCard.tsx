@@ -6,6 +6,7 @@ import ChildInfo from './ChildInfo';
 import { Child as ChildType } from '@/types/children';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
+import ChildCheckIn from './ChildCheckIn';
 
 
 // TO DO:
@@ -19,52 +20,12 @@ import { useInView } from 'react-intersection-observer';
 
 export default function Child() {
   const now = format(Date(), 'HH:mm');
-  const [time, setTime] = useState<string>(now);
   const { ref, inView } = useInView();
 
-  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ['children'],
     queryFn: fetchChildren,
     staleTime: 10000,
-  });
-
-  const mutateCheckOut = useMutation({
-    mutationFn: checkOutChild,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["children"] });
-    },
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["children"] });
-      const previousPosts = queryClient.getQueryData(["children"]);
-      queryClient.setQueryData(["children"], (childId: number) => childId);
-
-      return { previousPosts };
-    },
-    onError: (err, newPost, context) => {
-      queryClient.setQueryData(["children"], context?.previousPosts);
-    },
-  });
-
-  const mutateCheckIn = useMutation({
-    mutationFn: ({ childId, time }: { childId: string; time: string }) => checkInChild(childId, time),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["children"] });
-    },
-    onMutate: async ({ childId, time }: { childId: string; time: string }) => {
-      await queryClient.cancelQueries({ queryKey: ["children"] });
-      const previousPosts = queryClient.getQueryData(["posts"]);
-      queryClient.setQueryData(["children"], (oldData: any) => {
-        return oldData.map((child: ChildType) =>
-          child.childId === childId ? { ...child, checkedIn: true, time } : child
-        );
-      });
-
-      return { previousPosts };
-    },
-    onError: (err, newPost, context) => {
-      queryClient.setQueryData(["children"], context?.previousPosts);
-    },
   });
 
   const [displayChildren, setDisplayChildren] = useState<number>(5);
@@ -81,6 +42,7 @@ export default function Child() {
 
   if (error) return <p> Error occured: {error.message}</p>;
 
+
   return (
     <div className="flex flex-col bg-gray-400">
       <h1 className="text-center text-5xl font-extrabold">Nursery</h1>
@@ -89,35 +51,7 @@ export default function Child() {
           <div key={child.childId} className="flex rounded-md bg-white p-4">
             <ChildIntro child={child} />
             <ChildInfo child={child} />
-            {child.checkedIn ? (
-              <button
-                className="m-3 rounded-lg border-b-0 border-r-2 bg-white p-3"
-                onClick={() => {
-                  mutateCheckOut.mutate(child.childId);
-                }}
-              >
-                Check Out Child now at {time}
-              </button>
-            ) : (
-              <div className="flex flex-col items-center">
-                <button
-                  className="m-3 rounded-lg border-b-0 border-r-2 bg-white p-3"
-                  onClick={() => {
-                    mutateCheckIn.mutate({ childId: child.childId, time })
-                  }}
-                >
-                  Check In Child at
-                </button>
-                <input
-                  value={time}
-                  onChange={ev => {
-                    setTime(ev.target.value);
-                  }}
-                  aria-label="Time"
-                  type="time"
-                />
-              </div>
-            )}
+            <ChildCheckIn child={child} />
           </div>
         ))}
 

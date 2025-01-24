@@ -7,10 +7,11 @@ export default function ChildInfo(child: ChildrenInfo) {
   let time = format(child.child.checkinTime, 'HH:mm');
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-3/6">
       <h2 className="font-bold">Child Info:</h2>
-      <div>Gender: {child.child.gender === 1 ? 'Boy' : 'Girl'}</div>
-      <div className="mt-3 text-center">Last check-in: {date}</div>
+      <div>{child.child.gender === 1 ? 'Boy' : 'Girl'}</div>
+      <div className="mt-3 text-center">Last check-in:</div>
+      <div className="mt-3 text-center">{date}</div>
       <div className="text-center">{time}</div>
       {child?.child.checkedIn ? (
         <div className="mt-3 font-bold text-green-600">Checked In</div>

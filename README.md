@@ -3,8 +3,7 @@ Testing API calls with state manager
 Calling Nursery API as mocked data
 
 ## Functions
-The application do 3 things:
-1. List children with some form of pagination/lazy-loading/infinite-scroll
+1. List children with pagination/lazy-loading/infinite-scroll
 2. Checkin a child
 3. Checkout a child
 
@@ -60,14 +59,6 @@ curl \
   -d 'accessToken=<accessToken>' \
   https://app.famly.co/api/v2/children/fcd683d0-bc31-468c-948f-1ca70b91439d/checkout
 ```
-
-####
-Planning the App 20min:
-The purpose of the frontend app is for a nursery to manage the attendance of children each day.
-
-1. List children with some form of pagination/lazy-loading/infinite-scroll
-2. Checkin a child
-3. Checkout a child
 
 ## tech choices
 NextJs APP so that the data is static & ready in contrast with a react app 
