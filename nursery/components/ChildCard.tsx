@@ -7,6 +7,7 @@ import { Child as ChildType } from '@/types/children';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import ChildCheckIn from './ChildCheckIn';
+import Skeleton from './skeleton';
 
 
 // TO DO:
@@ -38,7 +39,7 @@ export default function Child() {
 
   const slicedArray = data?.slice(0, displayChildren);
 
-  if (isLoading) return <p> Loading...</p>;
+  if (isLoading) return <Skeleton />
 
   if (error) return <p> Error occured: {error.message}</p>;
 

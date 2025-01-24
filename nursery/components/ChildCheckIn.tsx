@@ -65,7 +65,7 @@ const ChildCheckIn = ({ child }: { child: ChildType }) => {
         <>
             {child.checkedIn ? (
                 <button
-                    className="m-3 rounded-lg border-2 font-bold bg-white p-3 hover:scale-110 transform transition duration-500 ease-in-out"
+                    className="w-2/5 my-3 rounded-lg border-2 font-bold bg-white p-1 hover:scale-110 transform transition duration-500 ease-in-out"
                     onClick={() => {
                         mutateCheckOut.mutate(child.childId);
                     }}
