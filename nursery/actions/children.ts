@@ -1,23 +1,17 @@
-import { Child } from '@/types/children';
-
 export const checkInChild = async (childId: string, time: string) => {
   const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
   try {
-    let res = await fetch(
-      `https://app.famly.co/api/v2/children/${childId}/checkins`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          accessToken,
-          pickupTime: time,
-        }),
+    await fetch(`https://app.famly.co/api/v2/children/${childId}/checkins`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
-    let data = await res.json();
+      body: JSON.stringify({
+        accessToken,
+        pickupTime: time,
+      }),
+    });
   } catch (error) {
     console.log(error);
   }
@@ -26,19 +20,15 @@ export const checkInChild = async (childId: string, time: string) => {
 export const checkOutChild = async (childId: string) => {
   const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
   try {
-    let res = await fetch(
-      `https://app.famly.co/api/v2/children/${childId}/checkout`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          accessToken,
-        }),
+    await fetch(`https://app.famly.co/api/v2/children/${childId}/checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
-    let data = await res.json();
+      body: JSON.stringify({
+        accessToken,
+      }),
+    });
   } catch (error) {
     console.log(error);
   }

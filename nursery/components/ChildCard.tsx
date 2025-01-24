@@ -6,9 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { Child as ChildType } from '@/types/children';
 import { useQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
+import Skeleton from './Skeleton';
 const ChildIntro = dynamic(() => import('./ChildIntro'), { ssr: false })
 const ChildInfo = dynamic(() => import('./ChildInfo'), { ssr: false })
-const Skeleton = dynamic(() => import('./skeleton'), { ssr: false })
 const ChildCheckIn = dynamic(() => import('./ChildCheckIn'), { ssr: false })
 
 export default function Child() {
@@ -42,7 +42,6 @@ export default function Child() {
             <ChildCheckIn child={child} />
           </div>
         ))}
-
         <div className="flex justify-center p-4">
           <button
             onClick={() =>
