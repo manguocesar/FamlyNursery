@@ -69,4 +69,5 @@ Post Checkout Child btn near the child card
 Token in .env
 
 ## next steps
+0. Replacing Tanstack query with RTK Query since QueryClient must use client component's hooks...
 1. turn ChildCard into pure component
